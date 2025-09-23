@@ -1,0 +1,190 @@
+/* ====== Design tokens ====== */
+:root {
+  --bg: #0f1216;
+  --surface: #151a21;
+  --surface-2: #1b2129;
+  --text: #e7ecf3;
+  --text-muted: #b7c0cc;
+  --primary: #4f8cff;
+  --primary-hover: #3a76e8;
+  --success: #34c759;
+  --danger: #ff4d4f;
+  --ring: rgba(79, 140, 255, 0.35);
+  --border: #2a313a;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --spacing: 16px;
+  --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ====== Base ====== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: radial-gradient(1200px 600px at 10% 0%, #11151b 0%, #0f1216 50%, #0c1014 100%);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+body {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover { color: var(--primary-hover); text-decoration: underline; }
+
+/* ====== Container/card ====== */
+/* If you wrap your block content with <div class="auth-card"> ... </div> */
+.auth-card {
+  width: min(640px, 92vw);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  backdrop-filter: saturate(1.2) blur(6px);
+}
+
+/* Fallback styling if you don't add the .auth-card wrapper */
+main, .content, .container {
+  width: min(640px, 92vw);
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+/* ====== Header/title ====== */
+h1, h2, h3 {
+  margin: 0 0 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.page-title {
+  font-size: 22px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+/* ====== Status text ====== */
+p {
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+p strong, p b { color: var(--text); }
+
+/* ====== Divider ====== */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 18px 0;
+}
+
+/* ====== Actions (buttons/links) ====== */
+button,
+.button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #1f2630 0%, #1a2029 100%);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease, background 120ms ease;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+button:hover,
+.button:hover {
+  transform: translateY(-1px);
+  border-color: #3a4450;
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 0.08) inset, 0 14px 30px rgba(0, 0, 0, 0.45), 0 0 0 6px var(--ring);
+}
+button:active,
+.button:active { transform: translateY(0); }
+
+button.primary,
+.button.primary { background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%); border-color: transparent; }
+button.danger,
+.button.danger { background: linear-gradient(180deg, #ff5c61 0%, #e6484c 100%); border-color: transparent; }
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Group actions horizontally */
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Turn plain links into button-like for auth links */
+a.button-link {
+  display: inline-block;
+  border: 1px solid var(--border);
+  background: #161b22;
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+a.button-link:hover {
+  background: #1a2028;
+  border-color: #3a4450;
+}
+
+/* ====== Forms ====== */
+form {
+  margin: 12px 0 0;
+}
+form button {
+  margin-top: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  background: #0f141a;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 5px var(--ring);
+}
+
+/* ====== Subtle animations ====== */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { animation: fade-in 220ms ease both; }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 480px) {
+  button, .button, a.button-link { width: 100%; justify-content: center; }
+}

@@ -1,3 +1,4 @@
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -27,6 +28,7 @@ class UsersManagersTests(TestCase):
         self.assertTrue(admin_user.is_active)
         self.assertTrue(admin_user.is_staff)
         self.assertTrue(admin_user.is_superuser)
+
 class SignupPageTest(TestCase):
     def test_url_exist_at_correct_location_signupview(self):
         response=self.client.get("/accounts/")
