@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 class UsersManagersTests(TestCase):
     def test_create_user(self):
@@ -27,4 +28,29 @@ class UsersManagersTests(TestCase):
         self.assertTrue(admin_user.is_active)
         self.assertTrue(admin_user.is_staff)
         self.assertTrue(admin_user.is_superuser)
+
+class SignupPageTest(TestCase):
+    def test_url_exist_at_correct_location_signupview(self):
+        response=self.client.get("/accounts/")
+        self.assertEqual(response.status_code,200)
+
+    def test_signup_view_name (self):
+        respons=self.client.get(reverse("signup"))
+        self.assertEqual(respons.status_code,200)
+        self.assertTemplateUsed(respons,"registration/signup.html")
+    def test_signup_form(self):
+        response=self.client.post(
+            reverse("signup"),
+            {
+                "username":"testusername",
+                "email":"testemail@email.com",
+                "password1":"testpass123",
+                "password2":"testpass123",
+            },
+        )    
+        self.assertEqual(response.status_code,302)
+        self.assertEqual(get_user_model().objects.all().count(),1)
+        self.assertEqual(get_user_model().objects.all()[0].username,"testusername")
+        self.assertEqual(get_user_model().objects.all()[0].email,"testemail@email.com")
+
 
